@@ -1,0 +1,41 @@
+java.lang.Exception: No tests found matching [{ExactMatcher:fDisplayName=test1], {ExactMatcher:fDisplayName=test1(pkg1.Test1)], {LeadingIdentifierMatcher:fClassName=pkg1.Test1,fLeadingIdentifier=test1]] from org.junit.internal.requests.ClassRequest@58a90037
+	at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:37)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader.createFilteredTest(JUnit4TestLoader.java:77)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader.createTest(JUnit4TestLoader.java:68)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader.loadTests(JUnit4TestLoader.java:43)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:444)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+
+mvn install -DskipTests
+mvn -DdownloadSources=true eclipse:eclipse
+mvn dependency:sources
+
+
+org.springframework.cloud.aws.core.io.s3.PathMatchingSimpleStorageResourcePatternResolver.getResource(String)
+	org.springframework.cloud.aws.core.io.s3.SimpleStorageResourceLoader.getResource(String)
+
+独自のResourceResolverを作る
+
+PathMatchingSimpleStorageResourcePatternResolver
+がどう初期化されているか？
+
+
+Root bean: class [org.springframework.cloud.aws.context.support.io.ResourceLoaderBeanPostProcessor]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null
+
+
+		String[] postProcessorNames =
+				beanFactory.getBeanNamesForType(BeanFactoryPostProcessor.class, true, false);
+[org.springframework.context.annotation.internalConfigurationAnnotationProcessor, propertySourcesPlaceholderConfigurer, org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.store, AmazonEc2InstanceDataPropertySourcePostProcessor, org.springframework.cloud.aws.context.support.io.ResourceLoaderBeanPostProcessor#0]
+
+BeanFactoryPostProcessor
+
+
+org.springframework.cloud.aws.context.config.AmazonEc2InstanceDataPropertySourcePostProcessor
+
+org.springframework.cloud.aws.context.support.io.ResourceLoaderBeanPostProcessor
+
+org.springframework.cloud.aws.context.config.annotation.ContextResourceLoaderConfiguration
+
+
